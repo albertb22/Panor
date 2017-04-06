@@ -1,0 +1,56 @@
+body {
+	font-family: 'Roboto', sans-serif;
+}
+
+.blue {
+	background-image: url('../img/home.jpeg');
+	background-position: center center;
+	background-size: cover;
+	height: 100%;
+	width: 100%;
+	display: table;
+}
+
+.red {
+	background-color: #F44336;
+}
+
+.yellow {
+	background-color: #F57F17;
+}
+
+.lightblue {
+	background-color: lightblue;
+}
+
+.green {
+	background: green;
+}
+
+.center {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.block {
+	margin: 50px 0;
+}
+
+.center h1 {
+	font-size: 75px;
+	text-shadow: 1px 1px 3px rgba(96, 96, 96, 1);
+}
+
+.center p {
+	font-size: 20px;
+	text-shadow: 1px 1px 3px rgba(96, 96, 96, 1);
+}
+
+h1 {
+	font-size: 50px;
+	color: #fff;
+}
+
+h3, p {
+	color: #fff;
+}
