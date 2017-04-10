@@ -64,7 +64,7 @@ The first parameter of the function is an object that defines the pages you want
 ```
 
 ### Options
-The second parameter is an object for the options. For now there is only one option. An example for the options object is something like this:
+The second parameter is an object for the options. For now there is only one option. An example for the options object looks something like this:
 
 ```javascript
 {
