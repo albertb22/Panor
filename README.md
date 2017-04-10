@@ -2,6 +2,8 @@
 
 Change your website in panoramic view. By clicking and dragging you can navigate to other pages on your website. Click and drag to the left or to the right to navigate to pages on the same level. Click and drag up and down to navigate to other levels that are parent or child pages of the page you curently on.
 
+Page: [Github pages](https://albertb22.github.io/Panor/)
+
 ## Instalation
 
 ### Step 1: Download the files
