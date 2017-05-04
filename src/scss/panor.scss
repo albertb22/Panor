@@ -16,52 +16,67 @@ html, body, .panor {
 	position: absolute;
 	right: 50px;
 	z-index: 999;
-	height: 50%;
+	max-height: 50%;
 	top: 25%;
-}
 
-.panor-menu div {
-	height: 15px;
-    width: 15px;
-    background-color: #ff9800;
-    border-radius: 100%;
-    display: block;
-    position: relative;
-    margin: 0 auto;
-    margin-bottom: 10px;
-    cursor: pointer;
-    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
-}
+	div {
+		height: 15px;
+	    width: 15px;
+	    background-color: #ff9800;
+	    border-radius: 100%;
+	    display: block;
+	    position: relative;
+	    margin: 0 auto;
+	    margin-bottom: 10px;
+	    cursor: pointer;
+	    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
 
-.panor-menu div[data-direction='parent'] {
-	height: 20px;
-    width: 20px;
-	background-color: #ffc107;
-	box-shadow: 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3);
-}
+	    &[data-direction='parent'] {
+			height: 10px;
+		    width: 10px;
+			background-color: #ffc107;
+		    position: absolute;
+		    top: 2px;
+		    left: -15px;
+			box-shadow: 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.3);
+		}
 
-.panor-menu div[data-direction='child'] {
-	height: 10px;
-	width: 10px;
-	background-color: #ef6c00;
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    margin-top: -5px;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+
+	    &[data-direction='child'] {
+			height: 10px;
+			width: 10px;
+			background-color: #ef6c00;
+		    position: absolute;
+		    top: 50%;
+		    left: 20px;
+		    margin-top: -5px;
+		    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+		}
+
+		&.active:before {
+			height: 7px;
+		    width: 7px;
+			content: '';
+			display: block;
+			background-color: rgba(0,0,0,0.3);
+			position: absolute;
+			border-radius: 100%;
+			top: 4px;
+			left: 4px;	
+		}
+	}
 }
 
 .panor-page-full {
-	width: 150%;
-	/*height: 100%;*/
-	height: 150%;
+	width: 200%;
+	height: 200%;
 	background-color: #000;
+	// background-image: url("../demo/img/home.jpeg");
+	// background-size: cover;
 }	
 
 .panor-page-inner {
-	/*padding: 0 16.6666666667%;*/
-	padding: 16.6666666667%;
-	/*height: 100%;*/
+	padding: 12.5%;
 }
 
 .panor-page-content {
@@ -70,17 +85,18 @@ html, body, .panor {
 	overflow: auto;
 	background-color: #fff;
 	position: absolute;
-	top: 25%;
+	top: 50%;
+	left: 50%;
 	backface-visibility: hidden;
 	transform: translate3d(0, 0, 0);
-	transform-style: preserve-3d;	
+	transform-style: preserve-3d;
+	// opacity: 0.5;
 }
 
 .pt-page-ontop {
 	z-index: 999;
 }
 
-/* #Fallback for -moz-  and -ms- is needed */
 .pt-page-scaleDown {
 	animation: scaleDown 1s ease both;
 }
@@ -107,59 +123,59 @@ html, body, .panor {
 	text-align: center;
 	font-size: 10px;
     position: fixed;
-}
 
-.panor-loading.panor-loading-next {
-    right: 12.5%;
-    margin-right: -25px;
-    top: 50%;
-    margin-top: -20px;
-}
+	&.panor-loading-next {
+	    right: 12.5%;
+	    margin-right: -25px;
+	    top: 50%;
+	    margin-top: -20px;
+	}
 
-.panor-loading.panor-loading-prev {
-	left: 12.5%;
-    margin-left: -25px;
-    top: 50%;
-    margin-top: -20px;
-}
+	&.panor-loading-prev {
+		left: 12.5%;
+	    margin-left: -25px;
+	    top: 50%;
+	    margin-top: -20px;
+	}
 
-.panor-loading.panor-loading-parent {
-    top: 12.5%;
-    margin-top: -25px;
-    left: 50%;
-    margin-left: -20px;
-}
+	&.panor-loading-parent {
+	    top: 12.5%;
+	    margin-top: -25px;
+	    left: 50%;
+	    margin-left: -20px;
+	}
 
-.panor-loading.panor-loading-child {
-	bottom: 12.5%;
-    margin-bottom: -25px;
-    left: 50%;
-    margin-left: -20px;
-}
+	&.panor-loading-child {
+		bottom: 12.5%;
+	    margin-bottom: -25px;
+	    left: 50%;
+	    margin-left: -20px;
+	}
 
-.panor-loading > div {
-	background-color: #fff;
-	height: 100%;
-	width: 7px;
-	display: inline-block;
-	margin: 0 3px 0 0;
-	animation: sk-stretchdelay 1.2s infinite ease-in-out;
-}
+	 > div {
+		background-color: #fff;
+		height: 100%;
+		width: 7px;
+		display: inline-block;
+		margin: 0 3px 0 0;
+		animation: sk-stretchdelay 1.2s infinite ease-in-out;
+	}
 
-.panor-loading .rect2 {
-	animation-delay: -1.1s;
-}
+	.rect2 {
+		animation-delay: -1.1s;
+	}
 
-.panor-loading .rect3 {
-	animation-delay: -1.0s;
-}
+	.rect3 {
+		animation-delay: -1.0s;
+	}
 
-.panor-loading .rect4 {
-	animation-delay: -0.9s;
-}
+	.rect4 {
+		animation-delay: -0.9s;
+	}
 
-.panor-loading .rect5 {
-	animation-delay: -0.8s;
+	.rect5 {
+		animation-delay: -0.8s;
+	}
 }
 
 @keyframes scaleDown {
@@ -169,22 +185,22 @@ html, body, .panor {
 
 @keyframes moveFromRight {
 	from { transform: translateX(100%); }
-	to { transform: translateX(25%); }
+	to { transform: translateX(0); }
 }
 
 @keyframes moveFromLeft {
 	from { transform: translateX(-100%); }
-	to { transform: translateX(-25%); }
+	to { transform: translateX(0); }
 }
 
 @keyframes moveFromTop {
 	from {transform: translateY(-100%); }
-	to { transform: translateY(-25%); }
+	to { transform: translateY(0); }
 }
 
 @keyframes moveFromBottom {
 	from { transform: translateY(100%); }
-	to { transform: translateY(25%); }
+	to { transform: translateY(0); }
 }
 
 /*Loading animation*/

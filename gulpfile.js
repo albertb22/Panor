@@ -42,9 +42,9 @@ gulp.task('dev_scripts', function() {
 
 gulp.task('dev', ['dev_styles', 'dev_scripts']);
 
-
 gulp.task('production', ['styles', 'scripts']);
 
+gulp.task('default', ['dev']);
 
 gulp.task('watch', function() {
 

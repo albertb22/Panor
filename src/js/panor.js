@@ -74,8 +74,10 @@
 			panor.panorMenu = el.find('.panor-menu').first();
 
 			setMenuItems();
+			setActiveMenuItem();
 		};
 
+		//Load the menu items based on the level
 		var setMenuItems = function () {
 			var menu = '';
 			
@@ -93,6 +95,12 @@
 			});
 
 			panor.panorMenu.html(menu);
+		};
+
+		//Mark the active page in the menu
+		var setActiveMenuItem = function (activePage) {
+			panor.panorMenu.find('div[data-page]').removeClass('active');
+			panor.panorMenu.find('div[data-page="'+panor.currentPage+'"]').addClass('active');
 		};
 
 		//select the next page in the array
@@ -191,7 +199,9 @@
 
 		var loadPage = function(newPage, direction, onHistoryChange) {
 			//Check if onHistoryChange isset
-			onHistoryChange = (typeof onHistoryChange === 'undefined') ? false : onHistoryChange;
+			onHistoryChange = (typeof onHistoryChange !== 'undefined') ? onHistoryChange : false;
+
+			centerPage(true);
 
 			//load the content of new page
 			$.post(newPage)
@@ -232,10 +242,6 @@
 					outClass = 'pt-page-scaleDown';
 					inClass = 'pt-page-moveFromLeft pt-page-ontop';
 				}
-
-				panor.panorPage.animate({ 
-					scrollTop: panor.panorPage.offset().top + (panor.panorPage.height() / 4)
-				}, {duration: 900, queue: false});
 			}
 			else if (direction === 'parent' || direction === 'child') {
 				if (direction === 'parent') {
@@ -246,10 +252,6 @@
 					outClass = 'pt-page-scaleDown';
 					inClass = 'pt-page-moveFromBottom pt-page-ontop';
 				}
-
-				panor.panorPage.animate({ 
-					scrollLeft: panor.panorPage.offset().left + (panor.panorPage.width() / 4)
-				}, {duration: 900, queue: false});
 			}
 
 			panor.currentPageEl.addClass(outClass).on(onAnimation, function() {
@@ -270,18 +272,19 @@
 		};
 
 		//Align functions
-		var centerPage = function(animate) {
-			animate = (typeof animate === 'undefined') ? false : animate;
+		var centerPage = function(animate, duration) {
+			animate = (typeof animate !== 'undefined') ? animate : false;
+			duration = (typeof duration !== 'undefined') ? duration : 400;
 
 			if (animate){
 				panor.panorPage.animate({ 
-					scrollLeft: panor.panorPage.offset().left + (panor.panorPage.width() / 4), 
-					scrollTop: panor.panorPage.offset().top + (panor.panorPage.height() / 4)
-				}, {duration: 400, queue: false});
+					scrollLeft: (panor.panorPage.width() / 2), 
+					scrollTop: (panor.panorPage.height() / 2)
+				}, {duration: duration, queue: false});
 			}
 			else {
-				panor.panorPage.scrollLeft(panor.panorPage.offset().left + (panor.panorPage.width() / 4));
-				panor.panorPage.scrollTop(panor.panorPage.offset().top + (panor.panorPage.height() / 4));
+				panor.panorPage.scrollLeft((panor.panorPage.width() / 2));
+				panor.panorPage.scrollTop((panor.panorPage.height() / 2));
 			}
 		};
 
@@ -293,9 +296,6 @@
 			panor.currentPage = result.key;
 			panor.currentLevel = result.level;
 			panor.parentPage = result.parent;
-
-			console.log(currentURL);
-			console.log(panor.pages);
 
 			if (typeof result !== 'object') {
 				// # furhter error handling
@@ -322,7 +322,6 @@
 		}
 
 		var onEndAnimation = function(newPage, direction, onHistoryChange, newPageEL, title, inClass) {
-			centerPage();
 			panor.animateCurrent = false;
 			panor.animateNew = false;
 
@@ -336,7 +335,7 @@
 			}
 			document.title = title;
 
-			//set newpage ot current
+			//set newpage to current
 			panor.currentPageEl = newPageEL;
 			panor.currentPage = newPage;
 
@@ -345,6 +344,10 @@
 
 			if (panor.settings.showMenu && (direction === 'child' || direction === 'parent')) {
 				setMenuItems();
+				setActiveMenuItem();
+			}
+			else {
+				setActiveMenuItem();
 			}
 		}
 
@@ -398,8 +401,11 @@
 			});
 		}
 
+		var qqq = false;
+
 		var mouseDown = function(e) {
 			e.preventDefault();
+			
 			mouseIsDown = true;
 			pageX = e.pageX;
 			pageY = e.pageY;
@@ -409,27 +415,28 @@
 
 		var mouseMove = function(e) {
 			if(mouseIsDown && !panor.loadingPage){
-				if (panor.panorPage.scrollLeft() <= 20) {
+				if (panor.panorPage.scrollLeft() <= (panor.panorPage.width() * 0.25)) {
 					panor.loadingPage = true;
 					prevPage();
 				} 
-				else if ((panor.panorPage.scrollLeft() - panor.panorPage.width() / 2) >= -20){
+				else if (panor.panorPage.scrollLeft() >= (panor.panorPage.width() * 0.75)) {
 					panor.loadingPage = true;
 					nextPage();
 				}
-				else if (panor.panorPage.scrollTop() <= 20) {
+				else if (panor.panorPage.scrollTop() <= (panor.panorPage.height() * 0.25)) {
 					panor.loadingPage = true;
 					parentPage();
 				}
-				else if ((panor.panorPage.scrollTop() - panor.panorPage.height() / 2) >= -20) {
+				else if (panor.panorPage.scrollTop() >= (panor.panorPage.height() * 0.75)) {
 					panor.loadingPage = true;
 					childPage();
 				}
 				else {
 					panor.loadingPage = false;
 				}
-				panor.panorPage.scrollLeft(pageLeft - e.pageX + pageX);  
-				panor.panorPage.scrollTop(pageTop - e.pageY + pageY);    
+
+				panor.panorPage.scrollLeft(pageLeft - e.pageX + pageX);
+				panor.panorPage.scrollTop(pageTop - e.pageY + pageY);
 			}		
 		};
 
@@ -442,21 +449,40 @@
 
 		var loadMenuItem = function(e) {
 			if (e.target.getAttribute('data-page') && e.target.getAttribute('data-page') != panor.currentPage) {
-				panor.panorPage.animate({ scrollLeft: panor.panorPage.width()}, 400, function() {
-					panor.loadingPage = true;
+				//panor.loadingPage = true;
+				var direction = e.target.getAttribute('data-direction') || 'next';
 
-					var direction = e.target.getAttribute('data-direction') || 'next';
-
-					if (direction === 'parent' || direction === 'child') {
+				if (direction === 'parent') {
+					panor.panorPage.animate({ scrollTop: (panor.panorPage.height() * 0.25)}, 400, function() {
 						var result = findCurrentLevel(panor.pages, e.target.getAttribute('data-page'), false);
 
 						panor.currentLevel = result.level;
 						panor.parentPage = result.parent;
-					}
 
-					loadingAnimation(direction);
-					loadPage(e.target.getAttribute('data-page'), direction);
-				});
+						loadingAnimation(direction);
+						loadPage(e.target.getAttribute('data-page'), direction);
+					});
+				}
+				else if (direction === 'child') {
+					panor.panorPage.animate({ scrollTop: (panor.panorPage.height() * 0.75)}, 400, function() {
+						var result = findCurrentLevel(panor.pages, e.target.getAttribute('data-page'), false);
+
+						panor.currentLevel = result.level;
+						panor.parentPage = result.parent;
+
+
+						loadingAnimation(direction);
+						loadPage(e.target.getAttribute('data-page'), direction);
+					});
+				}
+				else {
+					panor.panorPage.animate({ scrollLeft: (panor.panorPage.width() * 0.75)}, 400, function() {
+						//Check if it is previous or next
+
+						loadingAnimation(direction);
+						loadPage(e.target.getAttribute('data-page'), direction);
+					});
+				}
 			}
 		};
 
