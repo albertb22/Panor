@@ -45,8 +45,8 @@ Call the `.panor()` on the `<div class="panor">` element. Make this call inside 
 ```javascript
 $(document).ready(function() {
 	$('.panor').panor({
-		'http://panor.dev/demo/index.html': {},
-		'http://panor.dev/demo/page.html': {}
+		'http://yourwebsite.com/index.html': {},
+		'http://yourwebsite.com/page.html': {}
 	});
 });
 ```
@@ -58,9 +58,9 @@ The first parameter of the function is an object that defines the pages you want
 
 ```javascript
 {
-  'http://panor.dev/demo/coworkers.html': {
-    'http://panor.dev/demo/johndoe.html' : {},
-    'http://panor.dev/demo/janedoe.html' : {},
+  'http://yourwebsite.com/coworkers': {
+    'http://yourwebsite.com/coworkers/johndoe' : {},
+    'http://yourwebsite.com/coworkers/janedoe' : {},
   },
 }
 ```
