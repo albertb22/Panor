@@ -204,7 +204,7 @@
 			centerPage(true);
 
 			//load the content of new page
-			$.post(newPage)
+			$.get(newPage)
 			.done(function(response) {
 				loadingAnimation();
 				var html = '<div class="panor-page-content">' + $(response).filter('.panor').html() + '</div>';
