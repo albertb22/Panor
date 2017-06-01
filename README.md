@@ -4,7 +4,7 @@ Change your website in panoramic view. By clicking and dragging you can navigate
 
 Page: [Github pages](https://albertb22.github.io/Panor/)
 
-## Instalation
+## Installation
 
 ### Step 1: Download the files
 Download the files from the dist folder in this repository and them to your project folder.
