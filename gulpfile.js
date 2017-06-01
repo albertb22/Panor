@@ -14,6 +14,7 @@ gulp.task('styles', function() {
 	.pipe(csso())
 	.pipe(rename('panor.min.css'))
 	.pipe(gulp.dest('dist'))
+	.pipe(gulp.dest('docs/css'))
 	.pipe(notify({ message: 'Compiled scss files' }));
 });
 
@@ -22,6 +23,7 @@ gulp.task('scripts', function() {
 	.pipe(uglify())
 	.pipe(rename('panor.min.js'))
 	.pipe(gulp.dest('dist'))
+	.pipe(gulp.dest('docs/js'))
 	.pipe(notify({ message: 'Uglified js files' }));
 });
 

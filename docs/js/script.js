@@ -1,13 +1,13 @@
 $(document).ready(function() {
 	$('.panor').panor({
-		'http://panor.dev/demo': {},
-		'http://panor.dev/demo/overview.html': {
-			'http://panor.dev/demo/content.html': {
-				'http://panor.dev/demo/content2.html': {}
+		'https://albertb22.github.io/Panor': {},
+		'https://albertb22.github.io/Panor/overview.html': {
+			'https://albertb22.github.io/Panor/content.html': {
+				'https://albertb22.github.io/Panor/content2.html': {}
 			},
-			'http://panor.dev/demo/content1.html': {}
+			'https://albertb22.github.io/Panor/content1.html': {}
 		}, 
-		'http://panor.dev/demo/contact.html': {}
+		'https://albertb22.github.io/Panor/contact.html': {}
 	}, {
 		showMenu: true
 	});
